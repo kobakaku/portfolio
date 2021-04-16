@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-require 'validation.php';
+require 'form/validation.php';
 
 header('X-FRAME-OPTIONS: DENY');
 
@@ -50,7 +50,7 @@ if (!empty($_POST['btn_submit'])) {
     
     <?php if($pageFlag === 1): ?>
     <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
-    <form method="POST" action="input.php">
+    <form method="POST" action="index.php">
     氏名
     <?php echo h($_POST['your_name']) ?>
     <br>
@@ -142,7 +142,7 @@ if (!empty($_POST['btn_submit'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-            <form method="POST" action="input.php">
+            <form method="POST" action="index.php">
                 <div class="form-group">
                     <label for="your_name">氏名</label>
                     <input type="text" class="form-control" id="your_name" name="your_name" placeholder="名前書いてね～" value="<?php if(!empty($_POST['your_name'])){echo h($_POST['your_name']);} ?>" required>
