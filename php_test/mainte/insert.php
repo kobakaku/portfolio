@@ -6,7 +6,7 @@ function insertContact($request){
 require 'db_connection.php';
 
 
-//入力　DB保存 prepare  execute(配列(全て文字列))
+//入力　DB保存 prepare  execute
 
 $params = [
     'id' => null,
@@ -35,7 +35,7 @@ $columns = '';
 $values = '';
 
 foreach(array_keys($params) as $key){
-    if($count++>0/*この書き方特殊*/){
+    if($count++ >0/*この書き方特殊*/){
         $columns .= ',';
         $values .= ',';
     }
@@ -44,7 +44,7 @@ foreach(array_keys($params) as $key){
 }
 $sql = 'insert into contacts ('. $columns .')values('. $values .')';
 
-var_dump($sql);
+//var_dump($sql);
 
 $stmt = $pdo->prepare($sql);//プリペアードステートメント
 //$stmt->bindValue('id', 3, PDO::PARAM_INT);//紐づけ

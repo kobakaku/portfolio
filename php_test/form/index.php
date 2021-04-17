@@ -1,7 +1,3 @@
-<FilesMatch "\.html$">
-  AddType application/x-httpd-php .html
-</FilesMatch>
-
 <?php 
 
 session_start();
@@ -9,20 +5,17 @@ require 'validation.php';
 
 header('X-FRAME-OPTIONS: DENY');
 
-if (!empty($_POST)) {
+/*if (!empty($_POST)) {
     echo '<pre>';
     echo var_dump ($_POST);
     echo '</pre>';
-}
+}*/
 
 function h($str) {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
   }
 
-//スーパーグローバル変数
-//連想配列
 
-//入力、確認、完了
 
 $pageFlag = 0;
 
@@ -51,77 +44,7 @@ if (!empty($_POST['btn_submit'])) {
     <title>Document</title>
 </head>
 <body>
-    
-    <?php if($pageFlag === 1): ?>
-    <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
-    <form method="POST" action="index.php">
-    氏名
-    <?php echo h($_POST['your_name']) ?>
-    <br>
-    メールアドレス
-    <?php echo h($_POST['email']) ?>
-    <br>
-    ホームページ
-    <?php echo h($_POST['url']) ?>
-    <br>
-    性別
-    <?php if($_POST['gender'] === '0') { echo '男性';} ?>
-    <?php if($_POST['gender'] === '1') { echo '女性';} ?>
-    <br>
-    年齢
-    <?php 
-        if($_POST['age'] === '1') { echo '～19歳';}
-        if($_POST['age'] === '2') { echo '20歳～29歳';}
-        if($_POST['age'] === '3') { echo '30歳～39歳';}
-        if($_POST['age'] === '4') { echo '40歳～49歳';}
-        if($_POST['age'] === '5') { echo '50歳～59歳';}
-        if($_POST['age'] === '6') { echo '60歳～';}
-    
-    
-    ?>
-    <br>
-    お問い合わせ内容
-    <?php echo h($_POST['contact']) ?>
-    <br>
-
-    <input type="submit" name="back" value="戻る">
-    <input type="submit" name="btn_submit" value="送信する">
-    <input type="hidden" name="your_name" value="<?php echo h($_POST['your_name']) ?>">
-    <input type="hidden" name="email" value="<?php echo h($_POST['email']) ?>">
-    <input type="hidden" name="url" value="<?php echo h($_POST['url']) ?>">
-    <input type="hidden" name="gender" value="<?php echo h($_POST['gender']) ?>">
-    <input type="hidden" name="age" value="<?php echo h($_POST['age']) ?>">
-    <input type="hidden" name="contact" value="<?php echo h($_POST['contact']) ?>">
-    
-    <input type="hidden" name="csrf" value="<?php echo h($_POST['csrf']) ?>">
-    
-    <br>
-    
-    </form>
-    <?php endif ?>
-    <?php endif ?>
-
-    <?php if($pageFlag === 2): ?>
-    <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
-    
-    
-    <?php require '../mainte/insert.php';
-    
-    insertContact($_POST);
-    
-    ?>
-    
-    
-    
-    送信が完了しました
-
-    <?php unset($_SESSION['csrfToken']) ?>
-    <?php endif ?>
-    <?php endif ?>
-
-
-
-    <?php if($pageFlag === 0): ?>
+<?php if($pageFlag === 0): ?>
     <?php
     if (!isset($_SESSION['csrfToken'])) {
      $csrfToken = bin2hex(random_bytes(32));
@@ -240,6 +163,77 @@ if (!empty($_POST['btn_submit'])) {
     </div>
 
     <?php endif ?>
+
+    <?php if($pageFlag === 1): ?>
+    <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
+    <form method="POST" action="index.php">
+    氏名
+    <?php echo h($_POST['your_name']) ?>
+    <br>
+    メールアドレス
+    <?php echo h($_POST['email']) ?>
+    <br>
+    ホームページ
+    <?php echo h($_POST['url']) ?>
+    <br>
+    性別
+    <?php if($_POST['gender'] === '0') { echo '男性';} ?>
+    <?php if($_POST['gender'] === '1') { echo '女性';} ?>
+    <br>
+    年齢
+    <?php 
+        if($_POST['age'] === '1') { echo '～19歳';}
+        if($_POST['age'] === '2') { echo '20歳～29歳';}
+        if($_POST['age'] === '3') { echo '30歳～39歳';}
+        if($_POST['age'] === '4') { echo '40歳～49歳';}
+        if($_POST['age'] === '5') { echo '50歳～59歳';}
+        if($_POST['age'] === '6') { echo '60歳～';}
+    
+    
+    ?>
+    <br>
+    お問い合わせ内容
+    <?php echo h($_POST['contact']) ?>
+    <br>
+
+    <input type="submit" name="back" value="戻る">
+    <input type="submit" name="btn_submit" value="送信する">
+    <input type="hidden" name="your_name" value="<?php echo h($_POST['your_name']) ?>">
+    <input type="hidden" name="email" value="<?php echo h($_POST['email']) ?>">
+    <input type="hidden" name="url" value="<?php echo h($_POST['url']) ?>">
+    <input type="hidden" name="gender" value="<?php echo h($_POST['gender']) ?>">
+    <input type="hidden" name="age" value="<?php echo h($_POST['age']) ?>">
+    <input type="hidden" name="contact" value="<?php echo h($_POST['contact']) ?>">
+    
+    <input type="hidden" name="csrf" value="<?php echo h($_POST['csrf']) ?>">
+    
+    <br>
+    
+    </form>
+    <?php endif ?>
+    <?php endif ?>
+
+    <?php if($pageFlag === 2): ?>
+    <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
+    
+    
+    <?php require '../mainte/insert.php';
+    
+    insertContact($_POST);
+    
+    ?>
+    
+    
+    
+    送信が完了しました
+
+    <?php unset($_SESSION['csrfToken']) ?>
+    <?php endif ?>
+    <?php endif ?>
+
+
+
+    
 
 
 

@@ -17,8 +17,8 @@ try{
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES => false,
     ]);
-    echo '接続成功';
+    echo '接続成功（仮）';
 } catch(PDOException $e){
-    echo '接続失敗' . $e->getMessage() . "\n";
+    echo '接続失敗（仮）' . $e->getMessage() . "\n";
     exit();
 }
